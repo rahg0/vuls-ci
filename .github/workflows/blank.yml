@@ -1,0 +1,21 @@
+name: Sample Orca FS Scan Workflow
+on: pull_request
+jobs:
+  orca-fs-scan:
+    name: Orca fs Scan
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_KEY: slrk 
+    steps:
+      # Checkout your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Orca FS Scan
+        uses: orcasecurity/shiftleft-fs-action@v1
+        with:
+          api_token: ${{ secrets.ORCA_SECURITY_API_TOKEN }}
+          project_key: ${{ env.PROJECT_KEY }}
+          path:
+            # scanning the entire repository
+            "."
